@@ -68,7 +68,7 @@
     "pngjs": "^3.0.0",
     "run-series": "^1.1.4",
     "spectron": "^3.3.0",
-    "standard": "*",
+    "standard": ">=13.1.0",
     "tape": "^4.9.1",
     "walk-sync": "^2.0.2"
   },
