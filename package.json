@@ -48,7 +48,7 @@
     "winreg": "^1.2.4"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "buble": "^0.19.8",
     "cross-zip": "^2.1.6",
     "depcheck": "^0.9.0",
