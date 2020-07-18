@@ -7,6 +7,7 @@ const getMuiTheme = require('material-ui/styles/getMuiTheme').default
 const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
 
 const Header = require('../components/header')
+const LogMessages = require('../components/log-messages')
 
 // Perf optimization: Needed immediately, so do not lazy load it below
 const TorrentListPage = require('./torrent-list-page')
@@ -19,19 +20,21 @@ const Views = {
 }
 
 const Modals = {
-  'open-torrent-address-modal': createGetter(
-    () => require('../components/open-torrent-address-modal')
+  'open-torrent-address-modal': createGetter(() =>
+    require('../components/open-torrent-address-modal')
   ),
   'remove-torrent-modal': createGetter(() => require('../components/remove-torrent-modal')),
   'update-available-modal': createGetter(() => require('../components/update-available-modal')),
   'unsupported-media-modal': createGetter(() => require('../components/unsupported-media-modal')),
-  'delete-all-torrents-modal':
-      createGetter(() => require('../components/delete-all-torrents-modal'))
+  'delete-all-torrents-modal': createGetter(() =>
+    require('../components/delete-all-torrents-modal')
+  )
 }
 
-const fontFamily = process.platform === 'win32'
-  ? '"Segoe UI", sans-serif'
-  : 'BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif'
+const fontFamily =
+  process.platform === 'win32'
+    ? '"Segoe UI", sans-serif'
+    : 'BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif'
 
 darkBaseTheme.fontFamily = fontFamily
 darkBaseTheme.userAgent = false
@@ -46,7 +49,7 @@ let darkMuiTheme
 let lightMuiTheme
 
 class App extends React.Component {
-  render () {
+  render() {
     const state = this.props.state
 
     // Hide player controls while playing video, if the mouse stays still for a while
@@ -57,7 +60,8 @@ class App extends React.Component {
     const hideControls = state.shouldHidePlayerControls()
 
     const cls = [
-      'view-' + state.location.url(), /* e.g. view-home, view-player */
+      'view-' + state.location.url() /* e.g. view-home, view-player */,
+      ,
       'is-' + process.platform /* e.g. is-darwin, is-win32, is-linux */
     ]
     if (state.window.isFullScreen) cls.push('is-fullscreen')
@@ -71,36 +75,42 @@ class App extends React.Component {
     return (
       <MuiThemeProvider muiTheme={darkMuiTheme}>
         <div className={'app ' + cls.join(' ')}>
+          <LogMessages />
           <Header state={state} />
           {this.getErrorPopover()}
-          <div key='content' className='content'>{this.getView()}</div>
+          <div key="content" className="content">
+            {this.getView()}
+          </div>
           {this.getModal()}
         </div>
       </MuiThemeProvider>
     )
   }
 
-  getErrorPopover () {
+  getErrorPopover() {
     const state = this.props.state
     const now = new Date().getTime()
     const recentErrors = state.errors.filter((x) => now - x.time < 5000)
     const hasErrors = recentErrors.length > 0
 
     const errorElems = recentErrors.map(function (error, i) {
-      return (<div key={i} className='error'>{error.message}</div>)
+      return (
+        <div key={i} className="error">
+          {error.message}
+        </div>
+      )
     })
     return (
-      <div
-        key='errors'
-        className={'error-popover ' + (hasErrors ? 'visible' : 'hidden')}
-      >
-        <div key='title' className='title'>Error</div>
+      <div key="errors" className={'error-popover ' + (hasErrors ? 'visible' : 'hidden')}>
+        <div key="title" className="title">
+          Error
+        </div>
         {errorElems}
       </div>
     )
   }
 
-  getModal () {
+  getModal() {
     const state = this.props.state
     if (!state.modal) return
 
@@ -113,10 +123,10 @@ class App extends React.Component {
 
     const ModalContents = Modals[state.modal.id]()
     return (
-      <MuiThemeProvider muiTheme={lightMuiTheme}>
-        <div key='modal' className='modal'>
-          <div key='modal-background' className='modal-background' />
-          <div key='modal-content' className='modal-content'>
+      <MuiThemeProvider muiTheme={darkMuiTheme}>
+        <div key="modal" className="modal">
+          <div key="modal-background" className="modal-background" />
+          <div key="modal-content" className="modal-content">
             <ModalContents state={state} />
           </div>
         </div>
@@ -124,10 +134,10 @@ class App extends React.Component {
     )
   }
 
-  getView () {
+  getView() {
     const state = this.props.state
     const View = Views[state.location.url()]()
-    return (<View state={state} />)
+    return <View state={state} />
   }
 }
 

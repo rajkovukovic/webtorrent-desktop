@@ -20,7 +20,7 @@ body {
 }
 
 .app {
-  color: #FAFAFA; /* grey50 */
+  color: #fafafa; /* grey50 */
   font-family: BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.5em;
@@ -53,7 +53,7 @@ table {
 ::-webkit-scrollbar-thumb {
   border: 1px solid rgb(40, 40, 40);
   border-radius: 10px;
-  background: linear-gradient(to right, rgb(90, 90, 90), rgb(80, 80, 80))
+  background: linear-gradient(to right, rgb(90, 90, 90), rgb(80, 80, 80));
 }
 
 ::-webkit-scrollbar-track {
@@ -98,7 +98,7 @@ table {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -255,7 +255,7 @@ table {
   margin: 0 auto;
   width: calc(100% - 20px);
   max-width: 600px;
-  box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.4);
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.4);
   background-color: #eee;
   color: #222;
   padding: 20px;
@@ -275,7 +275,7 @@ table {
   margin: 8px 0;
 }
 
-.create-torrent .torrent-attribute>* {
+.create-torrent .torrent-attribute > * {
   display: inline-block;
 }
 
@@ -284,7 +284,7 @@ table {
   vertical-align: top;
 }
 
-.create-torrent .torrent-attribute>div {
+.create-torrent .torrent-attribute > div {
   width: calc(100% - 100px);
 }
 
@@ -299,13 +299,15 @@ table {
  */
 
 a,
-i { /* Links and icons */
+i {
+  /* Links and icons */
   cursor: default;
   -webkit-app-region: no-drag;
 }
 
 a:not(.disabled):hover,
-i:not(.disabled):hover { /* Show they're clickable without pointer: cursor */
+i:not(.disabled):hover {
+  /* Show they're clickable without pointer: cursor */
   -webkit-filter: brightness(1.3);
 }
 
@@ -323,7 +325,7 @@ textarea,
  */
 
 .torrent {
-  background: linear-gradient(to bottom right, #4B79A1, #283E51);
+  background: linear-gradient(to bottom right, #4b79a1, #283e51);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -672,7 +674,7 @@ body.drag .app::after {
 .player .controls .playback-cursor {
   position: absolute;
   top: -3px;
-  background-color: #FFF;
+  background-color: #fff;
   width: 3px;
   height: 3px;
   border-radius: 50%;
@@ -746,8 +748,9 @@ video::-webkit-media-text-track-container {
 }
 ::cue {
   background: none;
-  color: #FFF;
-  text-shadow: #000 -1px 0 1px, #000 1px 0 1px, #000 0 -1px 1px, #000 0 1px 1px, rgba(50, 50, 50, 0.5) 2px 2px 0;
+  color: #fff;
+  text-shadow: #000 -1px 0 1px, #000 1px 0 1px, #000 0 -1px 1px, #000 0 1px 1px,
+    rgba(50, 50, 50, 0.5) 2px 2px 0;
 }
 
 /*
@@ -841,7 +844,7 @@ video::-webkit-media-text-track-container {
 }
 
 .audio-metadata label {
-  display:inline-block;
+  display: inline-block;
   width: 120px;
   text-align: right;
   font-weight: normal;
@@ -899,7 +902,7 @@ video::-webkit-media-text-track-container {
  */
 
 .radial-progress {
-  width:  16px;
+  width: 16px;
   height: 16px;
   border-radius: 50%;
   background-color: #888;
@@ -907,8 +910,8 @@ video::-webkit-media-text-track-container {
 
 .radial-progress .circle .mask,
 .radial-progress .circle .fill {
-  width:    16px;
-  height:   16px;
+  width: 16px;
+  height: 16px;
   position: absolute;
   border-radius: 50%;
   -webkit-backface-visibility: hidden;
@@ -933,13 +936,13 @@ video::-webkit-media-text-track-container {
 }
 
 .radial-progress-large {
-  width:  40px;
+  width: 40px;
   height: 40px;
 }
 
 .radial-progress-large .circle .mask,
 .radial-progress-large .circle .fill {
-  width:  40px;
+  width: 40px;
   height: 40px;
 }
 .radial-progress-large .circle .mask {
@@ -971,4 +974,39 @@ video::-webkit-media-text-track-container {
 
 .control * {
   cursor: default !important;
+}
+
+.logger-container {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000000000;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "log-messages log-users";
+}
+
+.log-messages {
+  grid-area: log-messages;
+}
+
+.log-users {
+  grid-area: log-users;
+}
+
+.log-user.me {
+  color: rgb(0, 122, 211);
+}
+
+.logger-container > div {
+  overflow: auto;
+  padding: 10px;
+}
+
+.log-timestamp {
+  color: rgb(0, 122, 211);
 }

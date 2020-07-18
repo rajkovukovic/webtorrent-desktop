@@ -70,7 +70,7 @@ module.exports = class PlaybackController {
   }
 
   // Toggle (play or pause) the currently playing media
-  playPause () {
+  playPause (enforcePlayingState) {
     const state = this.state
     if (state.location.url() !== 'player') return
 
@@ -82,11 +82,16 @@ module.exports = class PlaybackController {
       else mediaTag.pause()
     }
 
-    if (state.playing.isPaused) this.play()
-    else this.pause()
+    if (typeof enforcePlayingState === 'boolean') {
+      if (enforcePlayingState) this.play()
+      else this.pause()
+    } else {
+      if (state.playing.isPaused) this.play()
+      else this.pause()
+    }
   }
 
-  pauseActiveTorrents (infoHash) {
+  pauseActiveTorrents(infoHash) {
     // Playback Priority: pause all active torrents if needed.
     if (!this.state.saved.prefs.highestPlaybackPriority) return
 
